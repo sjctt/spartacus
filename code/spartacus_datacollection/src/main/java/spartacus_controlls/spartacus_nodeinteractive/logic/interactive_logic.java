@@ -3,7 +3,7 @@ package spartacus_controlls.spartacus_nodeinteractive.logic;
 import net.sf.json.JSONObject;
 import spartacus_controlls.spartacus_nodeinteractive.entity.sysinfo;
 import spartacus_public.entity.return_resultModel;
-import spartacus_public.entity.spartacus_debug;
+import spartacus_public.method.spartacus_debug;
 import spartacus_public.method.spartacus_hostinfo;
 
 /**

@@ -6,7 +6,8 @@ import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletCont
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.context.annotation.Bean;
 
-import spartacus_public.entity.spartacus_debug;
+import spartacus_public.method.spartacus_debug;
+import spartacus_services.syslog_service.syslog_service;
 
 @SpringBootApplication
 public class App 
@@ -15,6 +16,9 @@ public class App
 	{
 		spartacus_debug debug = new spartacus_debug();
 		debug.init();//初始化debug状态
+		
+		syslog_service syslog = new syslog_service();
+		syslog.start();//启动syslog采集模块
 		
 		SpringApplication.run(App.class, args);
 	}

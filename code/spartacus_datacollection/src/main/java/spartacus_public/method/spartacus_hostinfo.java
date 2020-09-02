@@ -2,8 +2,6 @@ package spartacus_public.method;
 
 import java.util.Map;
 
-import spartacus_public.entity.spartacus_debug;
-
 /**
 * @author Song
 * @category 封装获取计算机属性的类
