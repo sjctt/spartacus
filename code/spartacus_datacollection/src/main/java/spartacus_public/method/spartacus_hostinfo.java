@@ -1,5 +1,9 @@
 package spartacus_public.method;
 
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.util.Enumeration;
 import java.util.Map;
 
 /**
@@ -40,6 +44,45 @@ public class spartacus_hostinfo
 			spartacus_debug.writelog_txt("spartacus_datacollection[get_hostname]:获取计算机名称时触发catch异常，"+e.getMessage());//记录debug日志
 			return "";
 		}
+	}
+	//#endregion
+	//#region 获取计算机IP地址
+	/**
+	 * @deprecated
+	 **/
+	public void get_hostaddress()
+	{
+		String clientip = "192.168.1.188";
+		long starttime = System.currentTimeMillis();
+		try 
+		{
+			Enumeration<NetworkInterface> allNetInterfaces = NetworkInterface.getNetworkInterfaces();
+			while (allNetInterfaces.hasMoreElements()) 
+			{
+				NetworkInterface netInterface = (NetworkInterface) allNetInterfaces.nextElement();
+				if (netInterface.isLoopback() || netInterface.isVirtual() || !netInterface.isUp()) 
+				{
+			          continue;
+				}
+				else
+				{
+					 Enumeration<InetAddress> addresses = netInterface.getInetAddresses();
+					 while (addresses.hasMoreElements()) 
+					 {
+						 if(addresses.nextElement() instanceof Inet4Address)
+						 {
+							 String ip = addresses.nextElement().getHostAddress();
+						 }
+					 }
+				}
+			}
+		}
+		catch (Exception e) 
+		{
+			
+		}
+		long endtime = System.currentTimeMillis();
+		System.out.println(endtime-starttime);
 	}
 	//#endregion
 }

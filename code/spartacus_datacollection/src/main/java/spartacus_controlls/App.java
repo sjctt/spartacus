@@ -20,7 +20,7 @@ public class App
 		syslog_service syslog = new syslog_service();
 		syslog.start();//启动syslog采集模块
 		
-		SpringApplication.run(App.class, args);
+		//SpringApplication.run(App.class, args);
 	}
 	
 	@Bean	

@@ -20,6 +20,7 @@ import spartacus_public.method.spartacus_debug;
  * @category redis的数据控制对象，运行依据redis.Properties配置文件
  * @serial
  *【2019年9月4日】	建立对象，支持单实例及集群模式的操作
+ *【2020年9月4日】	Initialization初始化中添加了判断是否已经连接的过程，用于保持长连接状态
  */
 public class redis_dop 
 {
@@ -52,12 +53,18 @@ public class redis_dop
 			if(redisconfig.getRedis_cluster().equals("true"))
 			{
 				//集群模式
-				redisconfig.setCon_cluster(cluster_redis_connection());
+				if(redisconfig.getCon_cluster()==null)
+				{
+					redisconfig.setCon_cluster(cluster_redis_connection());
+				}
 			}
 			else
 			{
 				//单实例模式
-				redisconfig.setCon_single(single_redis_connection());
+				if(redisconfig.getCon_single()==null)
+				{
+					redisconfig.setCon_single(single_redis_connection());
+				}
 			}
 		}
 		catch (Exception e) 
