@@ -1,18 +1,19 @@
 package spartacus_public.method;
 
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import org.helper.tools.iniHelper.iniOperate;
 import org.helper.tools.txtHelper.txtOperate;
+import org.springframework.web.bind.annotation.RestController;
+import spartacus_public.entity.config.config;
 
 /**
 * @author Song
 * @category debug日志记录
 * @serial		【2020年9月1日】	建立对象
+*					【2020年9月18日】将配置文件信息更改为通过上下文获取							
 */
-public class spartacus_debug 
+@RestController
+public class spartacus_debug
 {
 	public static boolean isdebug = false;
 	static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //记录时间格式
@@ -28,9 +29,7 @@ public class spartacus_debug
 	{
 		try 
 		{
-			URL sysconf =  getClass().getClassLoader().getResource("config/sysconf.ini");//配置文件路径
-			iniOperate ini = new iniOperate(sysconf.getPath());
-			String debug_log = ini.getValue("debug", "debug_log");
+			String debug_log =config.content.getEnvironment().getProperty("debug_log");
 			if(debug_log.equals("true"))
 			{
 				isdebug = true;

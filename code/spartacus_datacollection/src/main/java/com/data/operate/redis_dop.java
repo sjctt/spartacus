@@ -1,9 +1,7 @@
 package com.data.operate;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.Properties;
 import java.util.Set;
 
 import com.data.entity.redisconfig;
@@ -12,7 +10,9 @@ import net.sf.json.JSONArray;
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisCluster;
+import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
+import spartacus_public.entity.config.config;
 import spartacus_public.method.spartacus_debug;
 
 /**
@@ -21,6 +21,9 @@ import spartacus_public.method.spartacus_debug;
  * @serial
  *【2019年9月4日】	建立对象，支持单实例及集群模式的操作
  *【2020年9月4日】	Initialization初始化中添加了判断是否已经连接的过程，用于保持长连接状态
+ *【2020年9月22日】	新增连接池解决方案
+ *【2020年9月23日】	发现在集群模式下3.0以后版本连接对象为JedisCluster，已不在包含连接池，可以自己封装，这里暂时还用长连接方式
+ *								保留下单实例的池连接
  */
 public class redis_dop 
 {
@@ -39,14 +42,18 @@ public class redis_dop
 			if(!redisconfig.isInitialization())
 			{
 				//#region 读取配置文件
-				InputStream is = getClass().getClassLoader().getResourceAsStream("config/redis.Properties");
-				Properties properties = new Properties();
-				properties.load(is);
-				redisconfig.setRedis_cluster(properties.getProperty("redis_cluster"));
-				redisconfig.setRedis_host(properties.getProperty("redis_host"));
-				redisconfig.setRedis_port(Integer.parseInt(properties.getProperty("redis_port")));
-				redisconfig.setRedis_nodes(properties.getProperty("redis_nodes").replace("[", "").replace("]", ""));
-				redisconfig.setRedis_pwd(properties.getProperty("redis_pwd"));
+				String redis_cluster = config.content.getEnvironment().getProperty("redis_cluster");
+				String redis_host = config.content.getEnvironment().getProperty("redis_host");
+				int redis_port = Integer.parseInt(config.content.getEnvironment().getProperty("redis_port"));
+				String redis_nodes = config.content.getEnvironment().getProperty("redis_nodes").replace("[", "").replace("]", "");
+				String redis_pwd = config.content.getEnvironment().getProperty("redis_pwd");
+				String redis_pool = config.content.getEnvironment().getProperty("redis_pool");
+
+				redisconfig.setRedis_cluster(redis_cluster);
+				redisconfig.setRedis_host(redis_host);
+				redisconfig.setRedis_port(redis_port);
+				redisconfig.setRedis_nodes(redis_nodes);
+				redisconfig.setRedis_pwd(redis_pwd);
 				redisconfig.setInitialization(true);
 				//#endregion
 			}
@@ -55,12 +62,14 @@ public class redis_dop
 				//集群模式
 				if(redisconfig.getCon_cluster()==null)
 				{
+					spartacus_debug.writelog_txt("spartacus_datafactory[datafactory_service]:redis集群重新连接。");
 					redisconfig.setCon_cluster(cluster_redis_connection());
 				}
 			}
 			else
 			{
 				//单实例模式
+
 				if(redisconfig.getCon_single()==null)
 				{
 					redisconfig.setCon_single(single_redis_connection());
@@ -72,12 +81,13 @@ public class redis_dop
 			if(spartacus_debug.isdebug)
 			{
 				//记录debug日志
-				spartacus_debug.writelog_txt("spartacus_datacollection[syslog_service]:redis初始化失败，"+e.getMessage());
+				spartacus_debug.writelog_txt("spartacus_datafactory[datafactory_service]:redis初始化失败，"+e.getMessage());
 			}
 			redisconfig = null;
 		}
 	}
 	//#endregion
+	
 	//#region 连接单实例redis
 	/**
 	 * @author Song
@@ -86,13 +96,23 @@ public class redis_dop
 	 * 【2019年9月4日】	创建此对象
 	 * @throws Exception 连接失败时会抛出catch异常
 	 * */
-		private  Jedis single_redis_connection() throws Exception
-		{		
-			Jedis jedis = new Jedis(redisconfig.getRedis_host(),Integer.parseInt(redisconfig.getRedis_host()));
-			jedis.auth(redisconfig.getRedis_pwd());
-			return jedis;
-		}
-		//#endregion
+	private  Jedis single_redis_connection() throws Exception
+	{		
+		Jedis jedis = new Jedis(redisconfig.getRedis_host(),redisconfig.getRedis_port());
+		jedis.auth(redisconfig.getRedis_pwd());
+		return jedis;
+	}
+	//#endregion
+	//#region 单例池连接
+	public JedisPool single_pool_connection()
+	{
+		JedisPoolConfig config = new JedisPoolConfig();
+		config.setMaxIdle(100*60);//设置最大空闲时间，超过时间将自动断开连接
+		config.setMaxWaitMillis(1000*10);//最大阻塞时间，即发起请求后服务器无响应多长时间报错
+		JedisPool pool = new JedisPool(config,redisconfig.getRedis_host(),redisconfig.getRedis_port(),0,redisconfig.getRedis_pwd());
+		return pool;
+	}
+	//#endregion
 	//#region 连接集群redis
 	/**
 	 * @author Song
@@ -118,7 +138,7 @@ public class redis_dop
 		return redisCluster;
 	}
 	//#endregion
-
+	
 	//#region 添加字符串对象
 	/**
 	 * @author Song
@@ -249,7 +269,9 @@ public class redis_dop
 			if(iskey) 
 			{
 				result = cluster.get(key).contains(query);
-			}else {
+			}
+			else 
+			{
 				result = false;
 			}
 		}
@@ -260,7 +282,9 @@ public class redis_dop
 			if(iskey) 
 			{
 				result = single.get(key).contains(query);
-			}else {
+			}
+			else 
+			{
 				result = false;
 			}
 		}

@@ -2,6 +2,8 @@ package com.data.entity;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisCluster;
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.ShardedJedisPool;
 
 /**
  * @author Song
@@ -114,7 +116,8 @@ public class redisconfig
 	 **/
 	public JedisCluster getCon_cluster() {
 		return con_cluster;
-	}/**
+	}
+	/**
 	 * 设置集群模式的连接类
 	 **/
 	public void setCon_cluster(JedisCluster con_cluster) {

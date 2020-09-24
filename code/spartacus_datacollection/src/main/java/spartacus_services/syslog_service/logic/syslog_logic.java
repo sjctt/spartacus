@@ -1,6 +1,7 @@
 package spartacus_services.syslog_service.logic;
 
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,9 +25,10 @@ import spartacus_services.syslog_service.entity.spartacus_receive_data;
 public class syslog_logic 
 {
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-	//#region redis入库
+	//#region syslog数据入库
 	/**
 	 * @author Song
+	 * @throws UnknownHostException 
 	 * @category redis入库函数
 	 * @serial
 	 *【2020年09月02日】	建立对象
@@ -37,20 +39,29 @@ public class syslog_logic
 	public void warehouse(String sourceip,String data,redis_dop redis)
 	{
 		spartacus_receive_data receivedata = new spartacus_receive_data();
+		receivedata.setReceivetime(System.currentTimeMillis());
+		receivedata.setReceivesource("syslog");
 		//#region 确定资产是否存在
 		String json = isexist(sourceip,redis);
 		if(json == null)
 		{
 			//资产不存在，需要写入资产发现列表
 			syslog_service.syslog_queue.offer(sourceip);//加入任务队列
+			try 
+			{
+				receivedata.setSubnodeip(InetAddress.getLocalHost().getHostAddress());
+			} 
+			catch (Exception e) 
+			{
+				receivedata.setSubnodeip("");
+			}
+			receivedata.setHostip(sourceip);
 		}
 		else
 		{
 			//资产存在，整理到入库数据中
 			JSONObject assets = JSONObject.fromObject(json);//序列化资产对象
 			receivedata.setHostip(assets.getString("assetsip"));
-			receivedata.setReceivetime(System.currentTimeMillis());
-			receivedata.setReceivesource("syslog");
 			receivedata.setIdspartacus_assets(assets.getInt("idspartacus_assets"));
 			receivedata.setAssetsname(assets.getString("assetsname"));
 			receivedata.setSecuritydomain(assets.getString("securitydomain"));

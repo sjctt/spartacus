@@ -2,6 +2,7 @@ package spartacus_services.syslog_service.threadclasslibrary;
 
 import com.data.operate.redis_dop;
 
+import spartacus_public.method.spartacus_debug;
 import spartacus_services.syslog_service.syslog_service;
 import spartacus_services.syslog_service.logic.syslog_logic;
 
@@ -21,8 +22,6 @@ public class syslog_queuefactory  extends Thread
 	}
 	public void run() 
 	{
-		redis_dop redis = new redis_dop();
-		//redis.Initialization();
 		try 
 		{
 			while(true)
@@ -38,7 +37,7 @@ public class syslog_queuefactory  extends Thread
 		}
 		catch (Exception e) 
 		{
-			
+			spartacus_debug.writelog_txt("spartacus_datacollection[syslog_service]:处理队列任务时触发catch异常，"+e.getMessage());
 		}
 	}
 }

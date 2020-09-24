@@ -4,9 +4,34 @@
   <artifactId>spartacus_datacollection</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>spartacus_datacollection</name>
-  <description>spartacus_datacollection</description>
+  <description>spartacus_数据采集服务</description>
   
-   <!-- spring boot 的框架配置 --> 
+  <!-- spring boot 构建插件，解决没有主属性清单的问题 -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <!-- 解决自定义jar 发布后不可用的情况 -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			
+			<plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <configuration>
+                <includeSystemScope>true</includeSystemScope>
+            </configuration>
+	        </plugin>
+	        <!-- 解决自定义jar 发布后不可用的情况  end-->
+        </plugins>
+    </build>
+    <!-- spring boot 构建插件，解决没有主属性清单的问题 end -->
+    
+   <!-- spring boot 的框架配置 -->
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -22,13 +47,21 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		
+		<!-- springboot configuration依赖 支持自定义配置文件-->
+		<dependency>
+		      <groupId>org.springframework.boot</groupId>
+		      <artifactId> spring-boot-configuration-processor</artifactId>
+		      <optional> true </optional>
+		</dependency>
+		<!-- springboot configuration依赖 -->
 		<!-- spring boot 的jar包组件结束-->
 		
 		<!-- redis驱动 -->
 		<dependency>
         	<groupId>redis.clients</groupId>
         	<artifactId>jedis</artifactId>
-        	<version>3.1.0</version>
+        	<version>3.3.0</version>
     	</dependency>
 		<!-- redis驱动 end-->
 		
