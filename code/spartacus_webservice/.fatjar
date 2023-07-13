@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Thu Jul 11 15:15:58 CST 2019
+onejar.license.required=true
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=D\:\\2.\u4F60\u8001\u516C\u624D\u80FD\u770B\u61C2\u7684\u4E1C\u897F\\\u4EA7\u54C1\u53D1\u5E03\\spartacus_webservice.jar
+manifest.mergeall=true
+manifest.mainclass=spartacus.controlls.App
+manifest.file=<createnew>
+jarname.isextern=true
+onejar.expand=
+excludes=
+includes=
