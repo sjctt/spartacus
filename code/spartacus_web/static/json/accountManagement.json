@@ -1,0 +1,8 @@
+{
+  "success":true,
+  "data":[
+    {"id":1,"account":"账号1","accountStatus":"1","createTime":"2019-10-01","email":"junsai@163.com","lastLoginTime":"2019-10-10","jobNumber":"1","phoneNumber":"18141921363","lockTime":""},
+    {"id":2,"account":"账号2","accountStatus":"0","createTime":"2019-10-01","email":"junsai@163.com","lastLoginTime":"2019-10-10","jobNumber":"1","phoneNumber":"18141921363","lockTime":""}
+  ]
+}
+

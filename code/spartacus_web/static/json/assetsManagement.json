@@ -1,0 +1,8 @@
+{
+  "success":true,
+  "data":[
+    {"idspartacus_assets":1,"assetsname":"设备1","assetsip":"1.1.1.1","ref_node":"1","securitydomain":"安全领域","businessdomain":"业务域","physicalposition":"物理位置","remark":"资产1"},
+    {"idspartacus_assets":2,"assetsname":"设备2","assetsip":"1.1.1.2","ref_node":"2","securitydomain":"安全领域","businessdomain":"业务域","physicalposition":"物理位置","remark":"资产1"}
+  ]
+}
+

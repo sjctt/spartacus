@@ -1,0 +1,7 @@
+{
+    "success":true,
+    "data":[
+      {"receivetime":"2019-08-21 09:32:14","receivesource":"syslog","message":"<14>asdfaswerqwer qwerasdfasfwe wertsga"},
+      {"receivetime":"2019-08-20 09:32:14","receivesource":"syslog","message":"<14>123aasdf 234 r45aw 34"}
+    ]
+}
