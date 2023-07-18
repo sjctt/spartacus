@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>spartacus_datafactory</groupId>
   <artifactId>spartacus_datafactory</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1-beta</version>
   <name>spartacus_datafactory</name>
   <description>spartacus_数据工厂服务</description>
   

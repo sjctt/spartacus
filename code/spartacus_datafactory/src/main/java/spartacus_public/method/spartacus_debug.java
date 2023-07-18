@@ -1,5 +1,6 @@
 package spartacus_public.method;
 
+import java.io.File;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,6 +14,7 @@ import spartacus_public.entity.config.config;
 * @author Song
 * @category debug日志记录
 * @serial		【2020年9月1日】	建立对象
+* 					【2023年7月13日】自动创建log文件夹	
 */
 public class spartacus_debug 
 {
@@ -34,6 +36,9 @@ public class spartacus_debug
 			if(debug_log.equals("true"))
 			{
 				isdebug = true;
+				
+				File log_file = new File("log");
+				log_file.mkdir();
 			}
 			else
 			{
