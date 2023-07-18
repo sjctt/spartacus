@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>spartacus_datacollection</groupId>
   <artifactId>spartacus_datacollection</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1-beta</version>
   <name>spartacus_datacollection</name>
   <description>spartacus_数据采集服务</description>
   
