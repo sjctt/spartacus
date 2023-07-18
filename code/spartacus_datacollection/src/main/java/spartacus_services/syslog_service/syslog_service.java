@@ -49,8 +49,8 @@ public class syslog_service extends Thread
 		ExecutorService ThreadPool = Executors.newFixedThreadPool(availProcessors);;//创建一个固定线程池
 		
 		spartacus_debug.writelog_txt("spartacus_datacollection[syslog_service]:service start......");
-		String bind_ip ="0.0.0.0"; //udp绑定的ip地址
-		int bind_port =514; //udp绑定的端口
+		String bind_ip ="0.0.0.0"; //udp绑定的ip地址，默认0.0.0.0
+		int bind_port =514; //udp绑定的端口，默认514
 		DatagramChannel channel =null;
 		DatagramSocket socket =null;
 		Selector selector =null;

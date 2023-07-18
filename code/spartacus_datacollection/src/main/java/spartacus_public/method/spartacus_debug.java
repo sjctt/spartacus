@@ -1,5 +1,6 @@
 package spartacus_public.method;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.helper.tools.txtHelper.txtOperate;
@@ -10,7 +11,8 @@ import spartacus_public.entity.config.config;
 * @author Song
 * @category debug日志记录
 * @serial		【2020年9月1日】	建立对象
-*					【2020年9月18日】将配置文件信息更改为通过上下文获取							
+*					【2020年9月18日】将配置文件信息更改为通过上下文获取	
+*					【2023年7月13日】自动创建log文件夹						
 */
 @RestController
 public class spartacus_debug
@@ -32,6 +34,8 @@ public class spartacus_debug
 			String debug_log =config.content.getEnvironment().getProperty("debug_log");
 			if(debug_log.equals("true"))
 			{
+				File log_file = new File("log");
+				log_file.mkdir();
 				isdebug = true;
 			}
 			else
