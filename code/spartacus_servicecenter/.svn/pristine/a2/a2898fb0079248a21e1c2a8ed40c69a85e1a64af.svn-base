@@ -1,0 +1,143 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>spartacus_servicecenter</groupId>
+  <artifactId>spartacus_servicecenter</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>spartacus_servicecenter</name>
+  <description>系统服务中心</description>
+  
+
+	<build>
+		<plugins>
+			<!-- 解决自定义jar 发布后不可用的情况 -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			
+			<plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <configuration>
+                <includeSystemScope>true</includeSystemScope>
+            </configuration>
+        </plugin>
+        <!-- 解决自定义jar 发布后不可用的情况  end-->
+        
+        <!-- spring boot 构建插件，解决没有主属性清单的问题 -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <configuration>
+                <webResources>
+                    <resource>
+                        <directory>src/main/resources/libs/</directory>
+                        <targetPath>WEB-INF/lib/</targetPath>
+                        <includes>
+                            <include>**/*.jar</include>
+                        </includes>
+                    </resource>
+                </webResources>
+            </configuration>
+        </plugin>
+        <!-- spring boot 构建插件，解决没有主属性清单的问题 end -->
+		</plugins>
+	</build>
+	
+	<!-- spring boot 的框架配置 --> 
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.7.RELEASE</version>
+		<relativePath />
+	</parent>
+	<!-- spring boot 的框架配置 结束 -->
+	
+	<!--配置 jar包引用-->
+	<dependencies>
+		<!-- Maven库的jar包引用 -->
+		<!-- spring boot 的jar包组件-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<!-- spring boot 的jar包组件结束-->
+		
+		<!-- redis 驱动 -->
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+		<!-- redis 驱动 end -->
+		
+		<!-- mysql java驱动 -->
+ 		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.16</version>
+		</dependency>
+		<!-- mysql java驱动 结束-->
+		<!-- Maven库的jar包引用 end -->
+		
+		
+		<!-- 本地jar包引用 -->
+		<dependency>
+	        <groupId>commons-beanutils.jar</groupId>
+	        <artifactId>commons-beanutils.jar</artifactId>
+	        <version>1.0</version>
+	        <scope>system</scope>
+	        <systemPath>${project.basedir}/src/main/resources/lib/json/commons-beanutils.jar</systemPath>
+    	</dependency>
+    	
+    	<dependency>
+	        <groupId>commons-collections-3.0</groupId>
+	        <artifactId>commons-collections-3.0.jar</artifactId>
+	        <version>1.0</version>
+	        <scope>system</scope>
+	        <systemPath>${project.basedir}/src/main/resources/lib/json/commons-collections-3.0.jar</systemPath>
+    	</dependency>
+    	
+    	<dependency>
+	        <groupId>commons-lang-2.1</groupId>
+	        <artifactId>commons-lang-2.1.jar</artifactId>
+	        <version>1.0</version>
+	        <scope>system</scope>
+	        <systemPath>${project.basedir}/src/main/resources/lib/json/commons-lang-2.1.jar</systemPath>
+    	</dependency>
+    	
+    	<dependency>
+	        <groupId>commons-logging</groupId>
+	        <artifactId>commons-logging.jar</artifactId>
+	        <version>1.0</version>
+	        <scope>system</scope>
+	        <systemPath>${project.basedir}/src/main/resources/lib/json/commons-logging.jar</systemPath>
+    	</dependency>
+    	
+    	<dependency>
+	        <groupId>ezmorph-1.0.2</groupId>
+	        <artifactId>ezmorph-1.0.2.jar</artifactId>
+	        <version>1.0</version>
+	        <scope>system</scope>
+	        <systemPath>${project.basedir}/src/main/resources/lib/json/ezmorph-1.0.2.jar</systemPath>
+    	</dependency>
+    	
+    	<dependency>
+	        <groupId>json-lib-1.1-jdk13</groupId>
+	        <artifactId>json-lib-1.1-jdk13.jar</artifactId>
+	        <version>1.0</version>
+	        <scope>system</scope>
+	        <systemPath>${project.basedir}/src/main/resources/lib/json/json-lib-1.1-jdk13.jar</systemPath>
+    	</dependency>
+    	
+    	<dependency>
+	        <groupId>helper_spartacus</groupId>
+	        <artifactId>helper_spartacus.jar</artifactId>
+	        <version>1.0</version>
+	        <scope>system</scope>
+	        <systemPath>${project.basedir}/src/main/resources/lib/spartacus_helper/helper_spartacus.jar</systemPath>
+    	</dependency>
+		<!-- 本地jar包引用 end -->
+	</dependencies>
+	<!--配置 jar包引用 end-->
+</project>

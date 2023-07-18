@@ -1,14 +1,13 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>spartacus_webservice</groupId>
-	<artifactId>spartacus_webservice</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>spartacus_webservice</name>
-  	<description>spartacus_服务中心</description>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>spartacus_servicecenter</groupId>
+  <artifactId>spartacus_servicecenter</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>spartacus_servicecenter</name>
+  <description>系统服务中心</description>
   
-		<build>
+
+	<build>
 		<plugins>
 			<!-- 解决自定义jar 发布后不可用的情况 -->
 			<plugin>

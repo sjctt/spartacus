@@ -1,0 +1,12 @@
+
+2019-10-18 14:52:38 emerg scService[10005]：执行SQL语句时触发catch异常，SELECT assets.*,node.nodename as subnodename,node.nodeip as subnodeip from spartacus_assets assets left join spartacus_nodes node on node.idspartacus_nodes = assets.ref_node，Unknown column 'node.idspartacus_nodes' in 'on clause'
+2019-10-18 14:53:27 emerg scService[10005]：执行SQL语句时触发catch异常，SELECT assets.*,node.nodename as subnodename,node.nodeip as subnodeip from spartacus_assets assets left join spartacus_nodes node on node.idspartacus_nodes = assets.ref_node，Unknown column 'node.idspartacus_nodes' in 'on clause'
+2019-10-18 14:53:58 emerg scService[10005]：执行SQL语句时触发catch异常，SELECT assets.*,node.nodename as subnodename,node.nodeip as subnodeip from spartacus_assets assets left join spartacus_nodes node on node.idspartacus_nodes = assets.ref_node，Unknown column 'node.idspartacus_nodes' in 'on clause'
+2019-10-18 14:56:00 warning scService[10009]：连接采集器时触发catch异常，可能由于服务未运行或其他问题，Connection refused: connect
+2019-10-18 14:56:02 warning scService[10009]：连接数据工厂时触发catch异常，可能由于服务未运行或其他问题，Connection refused: connect
+2019-10-18 14:56:05 warning scService[10009]：连接采集器时触发catch异常，可能由于服务未运行或其他问题，Connection refused: connect
+2019-10-18 14:56:07 warning scService[10009]：连接数据工厂时触发catch异常，可能由于服务未运行或其他问题，Connection refused: connect
+2019-10-18 14:56:31 warning scService[10009]：连接采集器时触发catch异常，可能由于服务未运行或其他问题，Connection refused: connect
+2019-10-18 14:56:33 warning scService[10009]：连接数据工厂时触发catch异常，可能由于服务未运行或其他问题，Connection refused: connect
+2019-10-18 14:56:36 warning scService[10009]：连接采集器时触发catch异常，可能由于服务未运行或其他问题，Connection refused: connect
+2019-10-18 14:56:38 warning scService[10009]：连接数据工厂时触发catch异常，可能由于服务未运行或其他问题，Connection refused: connect
